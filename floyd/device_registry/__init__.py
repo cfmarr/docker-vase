@@ -1,6 +1,7 @@
 import markdown
 import os
 import shelve
+import requests
 
 # Import the framework
 from flask import Flask, g
@@ -12,17 +13,20 @@ app = Flask(__name__)
 # Create the API
 api = Api(app)
 
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = shelve.open("devices.db")
     return db
 
+
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
 
 @app.route("/")
 def index():
@@ -36,6 +40,12 @@ def index():
 
         # Convert to HTML
         return markdown.markdown(content)
+
+
+@app.route("/<name>")
+def user(name):
+    r = requests.get('http://localhost:3000/motes')
+    return r.json()
 
 
 class DeviceList(Resource):
@@ -90,7 +100,3 @@ class Device(Resource):
 
 api.add_resource(DeviceList, '/devices')
 api.add_resource(Device, '/device/<string:identifier>')
-
-
-
-

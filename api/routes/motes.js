@@ -6,9 +6,9 @@ const Mote = require('../models/Mote');
 router.get('/', async (req, res) => {
   try {
     const motes = await Mote.find();
-    res.json(motes);
+    res.status(200).json(motes);
   } catch (err) {
-    res.json({ message: err });
+    res.status(500).json({ message: err.code });
   }
 });
 

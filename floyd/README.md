@@ -1,3 +1,7 @@
+# Fork of a jakewright project
+
+[Original Repo Here](https://github.com/cfmarr/tutorials/tree/master/home-automation/02-device-registry)
+
 # Device Registry Service
 
 ## Usage
@@ -6,8 +10,8 @@ All responses will have the form
 
 ```json
 {
-    "data": "Mixed type holding the content of the response",
-    "message": "Description of what happened"
+  "data": "Mixed type holding the content of the response",
+  "message": "Description of what happened"
 }
 ```
 
@@ -25,18 +29,18 @@ Subsequent response definitions will only detail the expected value of the `data
 
 ```json
 [
-    {
-        "identifier": "floor-lamp",
-        "name": "Floor Lamp",
-        "device_type": "switch",
-        "controller_gateway": "192.1.68.0.2"
-    },
-    {
-        "identifier": "samsung-tv",
-        "name": "Living Room TV",
-        "device_type": "tv",
-        "controller_gateway": "192.168.0.9"
-    }
+  {
+    "identifier": "floor-lamp",
+    "name": "Floor Lamp",
+    "device_type": "switch",
+    "controller_gateway": "192.1.68.0.2"
+  },
+  {
+    "identifier": "samsung-tv",
+    "name": "Living Room TV",
+    "device_type": "tv",
+    "controller_gateway": "192.168.0.9"
+  }
 ]
 ```
 
@@ -61,10 +65,10 @@ If a device with the given identifier already exists, the existing device will b
 
 ```json
 {
-    "identifier": "floor-lamp",
-    "name": "Floor Lamp",
-    "device_type": "switch",
-    "controller_gateway": "192.1.68.0.2"
+  "identifier": "floor-lamp",
+  "name": "Floor Lamp",
+  "device_type": "switch",
+  "controller_gateway": "192.1.68.0.2"
 }
 ```
 
@@ -79,10 +83,10 @@ If a device with the given identifier already exists, the existing device will b
 
 ```json
 {
-    "identifier": "floor-lamp",
-    "name": "Floor Lamp",
-    "device_type": "switch",
-    "controller_gateway": "192.1.68.0.2"
+  "identifier": "floor-lamp",
+  "name": "Floor Lamp",
+  "device_type": "switch",
+  "controller_gateway": "192.1.68.0.2"
 }
 ```
 

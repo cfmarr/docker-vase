@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  api:
+    container_name: vase-api
+    restart: always
+    build: ./api
+    ports:
+      - '3000:3000'
+    links:
+      - 'mongo'
+
   mongo:
     image: mongo
     container_name: vase-mongo
@@ -21,6 +30,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: root
 
   floyd:
+    container_name: floyd
     build: ./floyd
     volumes:
       - ./floyd:/usr/src/app
