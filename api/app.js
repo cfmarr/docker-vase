@@ -12,8 +12,12 @@ app.use(bodyParser.json());
 app.use('/motes', motesRoute);
 
 //Connect to MongoDB
+let mongoUrl =
+  process.env.NODE_ENV == 'production'
+    ? process.env.DB_CONNECTION
+    : process.env.DB_CONNECTION_DEV;
 mongoose.connect(
-  process.env.DB_CONNECTION,
+  mongoUrl,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

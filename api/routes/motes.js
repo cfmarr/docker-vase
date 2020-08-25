@@ -2,16 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Mote = require('../models/Mote');
 
-//Get all the Motes
-router.get('/', async (req, res) => {
-  try {
-    const motes = await Mote.find();
-    res.status(200).json(motes);
-  } catch (err) {
-    res.status(500).json({ message: err.code });
-  }
-});
-
 //Add a Mote
 router.post('/', async (req, res) => {
   const mote = new Mote({
@@ -23,42 +13,106 @@ router.post('/', async (req, res) => {
 
   try {
     const savedMote = await mote.save();
-    res.json(savedMote);
+    res.status(201).json({
+      message: `moteId: ${mote.moteId} (${mote._id}) has been added`,
+      mote: savedMote,
+    });
   } catch (err) {
-    res.json({ message: err });
-  }
-});
-
-//Get a specific Mote
-router.get('/:postId', async (req, res) => {
-  try {
-    const mote = await Mote.findById(req.params.postId);
-    res.json(mote);
-  } catch (err) {
-    res.json({ message: err });
+    res.status(500).json({ message: err.code });
   }
 });
 
 //Delete a specific Mote
-router.delete('/:postId', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const removedMote = await Mote.remove({ _id: req.params.postId });
-    res.json({ message: `Mote ${req.params.postId} has been removed` });
+    const mote = await Mote.findById(req.params.id);
+    if (mote) {
+      try {
+        await Mote.deleteOne({ _id: req.params.id });
+        res.json({
+          message: `moteId: ${mote.moteId} (${req.params.id}) has been deleted`,
+          mote: mote,
+        });
+      } catch (err) {
+        res.status(500).json({ message: err });
+      }
+    } else {
+      res.status(404).json({
+        message: `The mote you are trying to delete does not exist`,
+      });
+    }
   } catch (err) {
-    res.json({ message: err });
+    res
+      .status(500)
+      .json({ message: `${req.params.id} is not a valid mote _id` });
   }
 });
 
-//Update a Mote
-router.patch('/:postId', async (req, res) => {
+//Get a specific Mote
+router.get('/:id', async (req, res) => {
   try {
-    const updatedMote = await Mote.updateOne(
-      { _id: req.params.postId },
-      { $set: { roomId: req.body.roomId } }
-    );
-    res.json(updatedMote);
+    const mote = await Mote.findById(req.params.id);
+    if (mote) {
+      try {
+        res.json({
+          message: `moteId: ${mote.moteId} (${req.params.id}) has been found`,
+          mote: mote,
+        });
+      } catch (err) {
+        res.status(500).json({ message: err });
+      }
+    } else {
+      res.status(404).json({
+        message: `The mote you are trying to get does not exist`,
+      });
+    }
   } catch (err) {
-    res.json({ message: err });
+    res
+      .status(500)
+      .json({ message: `${req.params.id} is not a valid mote _id` });
+  }
+});
+
+//Update a Mote Status
+router.patch('/:id', async (req, res) => {
+  try {
+    const mote = await Mote.findById(req.params.id);
+    if (mote) {
+      try {
+        await Mote.updateOne(
+          { _id: req.params.id },
+          { $set: { statusId: req.body.statusId } }
+        );
+        const updatedMote = await Mote.findById(req.params.id);
+        res.json({
+          message: `moteId: ${mote.moteId} (${req.params.id}) status is now ${req.body.statusId}`,
+          mote: updatedMote,
+        });
+      } catch (err) {
+        res.status(500).json({ message: err });
+      }
+    } else {
+      res.status(404).json({
+        message: `The mote you are trying to update does not exist`,
+      });
+    }
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: `${req.params.id} is not a valid mote _id` });
+  }
+});
+
+//Get all the Motes
+router.get('/', async (req, res) => {
+  try {
+    const motes = await Mote.find();
+    res.status(200).json({
+      message: `There are ${motes.length} motes`,
+      motes: motes,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.code });
   }
 });
 
