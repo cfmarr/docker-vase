@@ -30,7 +30,7 @@ In app.js `DB_CONNECTION` will be used for the mongoUrl when in production
 
 ## Usage
 
-Mote schema is as follows:
+Mote schema is as follows
 
 ```json
 {
@@ -46,7 +46,7 @@ All responses will have the form
 ```json
 {
   "message": "Description of what happened",
-  "mote(s)": "Mote or Motes effected"
+  "mote(s)": "Mote or Motes affected"
 }
 ```
 
