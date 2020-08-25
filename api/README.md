@@ -12,7 +12,7 @@ In app.js express sets the app on port 3000
 
 ### Developement workflow
 
-In the mongo director run `docker-compose up -d` so the app has a db
+In the mongo directory run `docker-compose up -d` so the app has a db
 
 In app.js `DB_CONNECTION_DEV` will be used for the mongoUrl when in dev
 
@@ -20,13 +20,13 @@ In app.js `DB_CONNECTION_DEV` will be used for the mongoUrl when in dev
 
 ### Production workflow
 
-In the root director run `docker-compose up -d`
+In the root directory run `docker-compose up -d`
 
 The api, mongo, mongo-express and floyd containers will be deployed
 
 In app.js `DB_CONNECTION` will be used for the mongoUrl when in production
 
-`npm start` will run by docker-compose in the api container
+`npm start` will be run by docker-compose in the api container
 
 ## Usage
 
