@@ -31,8 +31,11 @@ services:
 
   floyd:
     container_name: floyd
+    restart: always
     build: ./floyd
     volumes:
       - ./floyd:/usr/src/app
     ports:
       - 5000:80
+    links:
+      - 'api'

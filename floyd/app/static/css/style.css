@@ -1,0 +1,19 @@
+body {
+  background-color: #dadada;
+}
+body > .grid {
+  height: 100%;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+.hljs.json {
+  text-align: left;
+}
+.row-first {
+  margin-top: 40px;
+}
+.row-last {
+  margin-bottom: 40px;
+}
